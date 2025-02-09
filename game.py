@@ -7,7 +7,7 @@ class Game:
 	def __init__(self):
 		self.currentPlayer = -1  # 1 or -1 for two different players
 		self.gameState = GameState(self.initBoard(), playerTurn=-1)
-		self.actionSpace = np.full((64,), fill_value=0, dtype=np.int)
+		self.actionSpace = np.full((64,), fill_value=0, dtype=np.int64)
 		self.pieces = {'2': 'R', '1': 'r', '0': '-', '-1': 'b',
 					   '-2': 'B'}  # R-red queen, r-red token; B-black queen, b-black token
 		self.grid_shape = (8, 8)
@@ -24,7 +24,7 @@ class Game:
 			numpy array size (64,) with starting board representation
 
 		"""
-		board = np.full((64,), fill_value=0, dtype=np.int)
+		board = np.full((64,), fill_value=0, dtype=np.int64)
 
 		#black pieces
 		board[1:8:2] = 1
@@ -160,11 +160,11 @@ class GameState:
 			Array of size 2xBoardSize
 
 		"""
-		currentplayer_position = np.zeros(len(self.board), dtype=np.int)
+		currentplayer_position = np.zeros(len(self.board), dtype=np.int64)
 		currentplayer_position[self.board == self.playerTurn] = 1
 		currentplayer_position[self.board == 2*self.playerTurn] = 2
 
-		other_position = np.zeros(len(self.board), dtype=np.int)
+		other_position = np.zeros(len(self.board), dtype=np.int64)
 		other_position[self.board == -self.playerTurn] = 1
 		other_position[self.board == 2*-self.playerTurn] = 2
 
@@ -182,15 +182,15 @@ class GameState:
 
 			"""
 
-		player1_position = np.zeros(len(self.board), dtype=np.int)
+		player1_position = np.zeros(len(self.board), dtype=np.int64)
 		player1_position[self.board == 1] = 1
 		player1_position[self.board == 2] = 2
 
-		other_position = np.zeros(len(self.board), dtype=np.int)
+		other_position = np.zeros(len(self.board), dtype=np.int64)
 		other_position[self.board == -1] = -1
 		other_position[self.board == -2] = -2
 
-		stevec = np.array([self.counter], dtype=np.int)
+		stevec = np.array([self.counter], dtype=np.int64)
 
 		position = np.append(player1_position, other_position)
 		position = np.append(position, stevec)

@@ -27,7 +27,7 @@ class Gen_Model():
 		self.output_dim = output_dim
 
 	def predict(self, x):
-		return self.model.predict(x)
+		return self.model.predict(x, verbose=False)
 
 	def fit(self, states, targets, epochs, verbose, validation_split, batch_size):
 		return self.model.fit(states, targets, epochs=epochs, verbose=verbose, validation_split = validation_split, batch_size = batch_size)
@@ -234,7 +234,7 @@ class Residual_CNN(Gen_Model):
 
 		model = Model(inputs=[main_input], outputs=[vh, ph])
 		model.compile(loss={'value_head': 'mean_squared_error', 'policy_head': softmax_cross_entropy_with_logits},
-			optimizer=SGD(lr=self.learning_rate, momentum = config.MOMENTUM),	
+			optimizer=SGD(learning_rate=self.learning_rate, momentum = config.MOMENTUM),	
 			loss_weights={'value_head': 0.5, 'policy_head': 0.5}	
 			)
 
